@@ -45,6 +45,7 @@ class _AlbumDetailsViewState extends State<AlbumDetailsView> {
                     if (snapshot.hasData) {
                       var photos = snapshot.data!;
                       return ListView.builder(
+                        padding: const EdgeInsets.only(top: 4.0),
                         itemCount: photos.length,
                         itemBuilder: (BuildContext context, int index) {
                           return PhotoListItemView(photo: photos[index]);
@@ -112,6 +113,7 @@ class Header extends StatelessWidget {
             ],
           ],
         ),
+        const SizedBox(height: 8.0),
       ],
     );
   }
