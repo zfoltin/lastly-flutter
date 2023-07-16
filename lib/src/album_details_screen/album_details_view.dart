@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -105,16 +106,37 @@ class Header extends StatelessWidget {
               style: Theme.of(context).textTheme.labelSmall,
             ),
             const SizedBox(width: 8.0),
-            for (int i = 0; i < 5; i++) ...[
-              Icon(
-                Icons.star,
-                color: Colors.red[500],
-              )
-            ],
+            _generateStars(Random().nextDouble() * 6),
           ],
         ),
         const SizedBox(height: 8.0),
       ],
     );
+  }
+
+  static final _redWholeStar = Icon(
+    Icons.star,
+    color: Colors.red[500],
+  );
+  static final _redHalfStar = Icon(
+    Icons.star_half,
+    color: Colors.red[500],
+  );
+  static const _emptyStar = Icon(
+    Icons.star_border,
+    color: Colors.black26,
+  );
+
+  Widget _generateStars(double num) {
+    num = max(min(num, 5), 0);
+    var wholeStars = num.floor();
+    var halfStars = num % 1 >= 0.5 ? 1 : 0;
+    var emptyStars = 5 - wholeStars - halfStars;
+
+    return Row(children: [
+      ...List.generate(wholeStars, (i) => _redWholeStar),
+      ...List.generate(halfStars, (i) => _redHalfStar),
+      ...List.generate(emptyStars, (i) => _emptyStar),
+    ]);
   }
 }
