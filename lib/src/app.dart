@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'details_screen/details_view.dart';
+import 'album_details_screen/album_details_view.dart';
 import 'main_screen/main_screen_view.dart';
 import 'models.dart';
 import 'settings/settings_controller.dart';
@@ -70,10 +70,10 @@ class MyApp extends StatelessWidget {
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
-                  case SampleItemDetailsView.routeName:
+                  case AlbumDetailsView.routeName:
                     var album = Album.fromJson(
                         routeSettings.arguments as Map<String, dynamic>);
-                    return SampleItemDetailsView(album: album);
+                    return AlbumDetailsView(album: album);
                   case MainScreenView.routeName:
                   default:
                     return const MainScreenView();

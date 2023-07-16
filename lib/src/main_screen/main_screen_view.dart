@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../settings/settings_view.dart';
+import '../album_details_screen/album_details_view.dart';
 import '../models.dart';
-import '../details_screen/details_view.dart';
+import '../settings/settings_view.dart';
 
 /// Main screen loading all the albums from jsonplaceholder
 class MainScreenView extends StatefulWidget {
@@ -69,7 +69,7 @@ class _MainScreenViewState extends State<MainScreenView> {
                           // the app after it has been killed while running in the
                           // background, the navigation stack is restored.
                           Navigator.restorablePushNamed(
-                              context, SampleItemDetailsView.routeName,
+                              context, AlbumDetailsView.routeName,
                               arguments: item.toJson());
                         });
                   },
@@ -86,7 +86,7 @@ class _MainScreenViewState extends State<MainScreenView> {
   Future<List<Album>> loadData() async {
     var dataURL = Uri.parse('https://jsonplaceholder.typicode.com/albums');
     http.Response response = await http.get(dataURL);
-    // TODO: remove - for now, pretend it takes a little longer
+    // MEMO: pretend it takes a little longer..
     await Future.delayed(const Duration(milliseconds: 500));
     if (response.statusCode == 200) {
       List<dynamic> result = jsonDecode(response.body);
