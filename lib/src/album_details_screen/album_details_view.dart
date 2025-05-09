@@ -38,7 +38,11 @@ class _AlbumDetailsViewState extends State<AlbumDetailsView> {
         padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
         child: Column(
           children: [
-            Header(id: widget.album.id, title: widget.album.title),
+            _AlbumDetailsHeader(
+              id: widget.album.id,
+              title: widget.album.title,
+              rating: widget.album.rating,
+            ),
             Expanded(
               child: FutureBuilder(
                   future: futurePhotos,
@@ -57,9 +61,11 @@ class _AlbumDetailsViewState extends State<AlbumDetailsView> {
                     }
                     // By default, show a loading spinner.
                     return Center(
-                        child: Container(
-                            padding: const EdgeInsets.only(top: 20.0),
-                            child: const CircularProgressIndicator()));
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: const CircularProgressIndicator(),
+                      ),
+                    );
                   }),
             ),
           ],
@@ -81,11 +87,14 @@ class _AlbumDetailsViewState extends State<AlbumDetailsView> {
   }
 }
 
-class Header extends StatelessWidget {
-  const Header({super.key, required this.id, required this.title});
+class _AlbumDetailsHeader extends StatelessWidget {
+  const _AlbumDetailsHeader(
+      {Key? key, required this.id, required this.title, required this.rating})
+      : super(key: key);
 
   final int id;
   final String title;
+  final double rating;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +115,7 @@ class Header extends StatelessWidget {
               style: Theme.of(context).textTheme.labelSmall,
             ),
             const SizedBox(width: 8.0),
-            _generateStars(Random().nextDouble() * 6),
+            _generateStars(rating),
           ],
         ),
         const SizedBox(height: 8.0),
